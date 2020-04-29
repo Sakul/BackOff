@@ -10,7 +10,7 @@ using TechTalk.SpecFlow.Assist;
 namespace BackOff.Shared.Tests
 {
     [Binding]
-    public class OTPSteps
+    public class RequestOTPSteps
     {
         private DateTime currentTime;
         private Func<DateTime> currenTimeFn;
@@ -19,7 +19,7 @@ namespace BackOff.Shared.Tests
         private Mock<IWela> welaMock;
         private Otp actual;
 
-        public OTPSteps()
+        public RequestOTPSteps()
         {
             currenTimeFn = () => currentTime;
             var mock = new MockRepository(MockBehavior.Default);
@@ -59,9 +59,8 @@ namespace BackOff.Shared.Tests
         {
             actual.Should().NotBeNull();
             actual.Code.Should().NotBeNullOrWhiteSpace();
-            actual.ShouldSendOTP.Should().BeTrue();
-            actual.ReqAttempt.Should().Be(expectedReqAttempt);
-            actual.UnlockedTime.Should().Be(expectedUnlockedTime);
+            actual.BackOff.ReqAttempt.Should().Be(expectedReqAttempt);
+            actual.BackOff.UnlockedTime.Should().Be(expectedUnlockedTime);
 
             requestCounterMock.Verify(it => it.Increment(It.IsAny<string>()), Times.Exactly(1));
             welaMock.Verify(it => it.SetUnlockedTime(It.IsAny<string>(), It.Is<DateTime>(actual => actual == expectedUnlockedTime)), Times.Exactly(1));
@@ -72,9 +71,8 @@ namespace BackOff.Shared.Tests
         {
             actual.Should().NotBeNull();
             actual.Code.Should().BeNull();
-            actual.ShouldSendOTP.Should().BeFalse();
-            actual.ReqAttempt.Should().Be(expectedReqAttempt);
-            actual.UnlockedTime.Should().Be(expectedUnlockedTime);
+            actual.BackOff.ReqAttempt.Should().Be(expectedReqAttempt);
+            actual.BackOff.UnlockedTime.Should().Be(expectedUnlockedTime);
 
             requestCounterMock.Verify(it => it.Increment(It.IsAny<string>()), Times.Never());
             welaMock.Verify(it => it.SetUnlockedTime(It.IsAny<string>(), It.IsAny<DateTime>()), Times.Never());
