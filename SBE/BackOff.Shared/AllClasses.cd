@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+  <Class Name="BackOff.Shared.OtpController">
+    <Position X="0.5" Y="0.5" Width="5.25" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAABAAAAgAAIAAAAAAAAAAAAAAAAACEAAAABAAE=</HashCode>
+      <FileName>OtpController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BackOff.Shared.Models.Otp">
+    <Position X="0.5" Y="2.75" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAAAAAABAAAgAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Otp.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BackOff.Shared.Models.Result">
+    <Position X="3.5" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Result.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="BackOff.Shared.ICounter">
+    <Position X="6.25" Y="0.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAIAAQAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ICounter.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="BackOff.Shared.IWela">
+    <Position X="6.25" Y="2" Width="4.25" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAAAAAAAABABAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>IWela.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
