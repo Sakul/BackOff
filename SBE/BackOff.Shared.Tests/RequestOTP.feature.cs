@@ -19,7 +19,7 @@ namespace BackOff.Shared.Tests
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "3.1.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public partial class BackOffFeature : object, Xunit.IClassFixture<BackOffFeature.FixtureData>, System.IDisposable
+    public partial class RequestOTPFeature : object, Xunit.IClassFixture<RequestOTPFeature.FixtureData>, System.IDisposable
     {
         
         private static TechTalk.SpecFlow.ITestRunner testRunner;
@@ -31,7 +31,7 @@ namespace BackOff.Shared.Tests
 #line 1 "RequestOTP.feature"
 #line hidden
         
-        public BackOffFeature(BackOffFeature.FixtureData fixtureData, BackOff_Shared_Tests_XUnitAssemblyFixture assemblyFixture, Xunit.Abstractions.ITestOutputHelper testOutputHelper)
+        public RequestOTPFeature(RequestOTPFeature.FixtureData fixtureData, BackOff_Shared_Tests_XUnitAssemblyFixture assemblyFixture, Xunit.Abstractions.ITestOutputHelper testOutputHelper)
         {
             this._testOutputHelper = testOutputHelper;
             this.TestInitialize();
@@ -40,7 +40,7 @@ namespace BackOff.Shared.Tests
         public static void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "BackOff", "\tIn order to คำนวณบทลงโทษในการรอคอยได้\r\n\tAs a ระบบ\r\n\tI want ตรวจสอบความถูกต้องในก" +
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "RequestOTP", "\tIn order to คำนวณบทลงโทษในการรอคอยได้\r\n\tAs a ระบบ\r\n\tI want ตรวจสอบความถูกต้องในก" +
                     "ารจัดการคำขอของผู้ใช้", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
@@ -81,7 +81,13 @@ namespace BackOff.Shared.Tests
 #line 6
 #line hidden
 #line 7
- testRunner.Given("ขณะนี้เวลา \'1/1/2020 00:00:00\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("ระบบทำการกำหนดค่าเริ่มต้นของการทำ OTP", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 8
+ testRunner.And("ขณะนี้เวลา \'1/1/2020 00:00:00\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 9
+ testRunner.And("รหัสยืนยัน OTP ในรอบนี้คือ \'A1B2C3\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
         }
         
@@ -92,7 +98,7 @@ namespace BackOff.Shared.Tests
         
         [Xunit.SkippableFactAttribute(DisplayName="เบอร์โทรที่ยังไม่เคยมีบันทึกประวัติมาก่อนขอทำรายการ จะต้องขอดำเนินรายการได้ และจะ" +
             "ต้องรอ 1 นาทีถึงจะทำขอทำรายการใหม่ได้")]
-        [Xunit.TraitAttribute("FeatureTitle", "BackOff")]
+        [Xunit.TraitAttribute("FeatureTitle", "RequestOTP")]
         [Xunit.TraitAttribute("Description", "เบอร์โทรที่ยังไม่เคยมีบันทึกประวัติมาก่อนขอทำรายการ จะต้องขอดำเนินรายการได้ และจะ" +
             "ต้องรอ 1 นาทีถึงจะทำขอทำรายการใหม่ได้")]
         public virtual void เบอรโทรทยงไมเคยมบนทกประวตมากอนขอทำรายการจะตองขอดำเนนรายการไดและจะตองรอ1นาทถงจะทำขอทำรายการใหมได()
@@ -100,7 +106,7 @@ namespace BackOff.Shared.Tests
             string[] tagsOfScenario = ((string[])(null));
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("เบอร์โทรที่ยังไม่เคยมีบันทึกประวัติมาก่อนขอทำรายการ จะต้องขอดำเนินรายการได้ และจะ" +
                     "ต้องรอ 1 นาทีถึงจะทำขอทำรายการใหม่ได้", null, ((string[])(null)));
-#line 9
+#line 11
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -126,15 +132,18 @@ this.FeatureBackground();
                 TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
                             "Phone",
                             "AttemptCount"});
-#line 10
+#line 12
  testRunner.Given("รายการเบอร์โทรในระบบเป็นดังนี้", ((string)(null)), table1, "Given ");
 #line hidden
-#line 12
+#line 14
  testRunner.When("เบอร์โทร \'0914185401\' ขอทำรายการ", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 13
+#line 15
  testRunner.Then("ขอดำเนินรายการได้ โดยเป็นการขอครั้งที่ \'1\' และจะขอทำรายการได้ใหม่เมื่อเวลา \'1/1/2" +
                         "020 00:01:00\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+#line 16
+ testRunner.And("รหัสยืนยัน OTP ที่ระบบส่งให้คือ \'A1B2C3\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -142,7 +151,7 @@ this.FeatureBackground();
         
         [Xunit.SkippableTheoryAttribute(DisplayName="เบอร์โทรที่ยังขอไม่เกิน 3 ครั้งขอทำรายการ จะต้องขอดำเนินรายการได้ และจะต้องรอ 1 น" +
             "าทีถึงจะทำขอทำรายการใหม่ได้")]
-        [Xunit.TraitAttribute("FeatureTitle", "BackOff")]
+        [Xunit.TraitAttribute("FeatureTitle", "RequestOTP")]
         [Xunit.TraitAttribute("Description", "เบอร์โทรที่ยังขอไม่เกิน 3 ครั้งขอทำรายการ จะต้องขอดำเนินรายการได้ และจะต้องรอ 1 น" +
             "าทีถึงจะทำขอทำรายการใหม่ได้")]
         [Xunit.InlineDataAttribute("0914185400", "1", "1/1/2020 00:01:00", new string[0])]
@@ -153,7 +162,7 @@ this.FeatureBackground();
             string[] tagsOfScenario = exampleTags;
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("เบอร์โทรที่ยังขอไม่เกิน 3 ครั้งขอทำรายการ จะต้องขอดำเนินรายการได้ และจะต้องรอ 1 น" +
                     "าทีถึงจะทำขอทำรายการใหม่ได้", null, exampleTags);
-#line 15
+#line 18
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -188,15 +197,18 @@ this.FeatureBackground();
                 table2.AddRow(new string[] {
                             "0914185402",
                             "2"});
-#line 16
+#line 19
  testRunner.Given("รายการเบอร์โทรในระบบเป็นดังนี้", ((string)(null)), table2, "Given ");
 #line hidden
-#line 21
+#line 24
  testRunner.When(string.Format("เบอร์โทร \'{0}\' ขอทำรายการ", phone), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 22
+#line 25
  testRunner.Then(string.Format("ขอดำเนินรายการได้ โดยเป็นการขอครั้งที่ \'{0}\' และจะขอทำรายการได้ใหม่เมื่อเวลา \'{1}" +
                             "\'", expectedAttemptCount, expectedUnlockedTime), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+#line 26
+ testRunner.And("รหัสยืนยัน OTP ที่ระบบส่งให้คือ \'A1B2C3\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -204,7 +216,7 @@ this.FeatureBackground();
         
         [Xunit.SkippableFactAttribute(DisplayName="เบอร์โทรที่ทำรายการมาแล้ว 3 ครั้งขอทำรายการ จะต้องขอดำเนินรายการได้ และจะต้องรอ 3" +
             "0 นาทีถึงจะทำขอทำรายการใหม่ได้")]
-        [Xunit.TraitAttribute("FeatureTitle", "BackOff")]
+        [Xunit.TraitAttribute("FeatureTitle", "RequestOTP")]
         [Xunit.TraitAttribute("Description", "เบอร์โทรที่ทำรายการมาแล้ว 3 ครั้งขอทำรายการ จะต้องขอดำเนินรายการได้ และจะต้องรอ 3" +
             "0 นาทีถึงจะทำขอทำรายการใหม่ได้")]
         public virtual void เบอรโทรททำรายการมาแลว3ครงขอทำรายการจะตองขอดำเนนรายการไดและจะตองรอ30นาทถงจะทำขอทำรายการใหมได()
@@ -212,7 +224,7 @@ this.FeatureBackground();
             string[] tagsOfScenario = ((string[])(null));
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("เบอร์โทรที่ทำรายการมาแล้ว 3 ครั้งขอทำรายการ จะต้องขอดำเนินรายการได้ และจะต้องรอ 3" +
                     "0 นาทีถึงจะทำขอทำรายการใหม่ได้", null, ((string[])(null)));
-#line 30
+#line 34
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -241,15 +253,18 @@ this.FeatureBackground();
                 table3.AddRow(new string[] {
                             "0914185403",
                             "3"});
-#line 31
+#line 35
  testRunner.Given("รายการเบอร์โทรในระบบเป็นดังนี้", ((string)(null)), table3, "Given ");
 #line hidden
-#line 34
+#line 38
  testRunner.When("เบอร์โทร \'0914185403\' ขอทำรายการ", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 35
+#line 39
  testRunner.Then("ขอดำเนินรายการได้ โดยเป็นการขอครั้งที่ \'4\' และจะขอทำรายการได้ใหม่เมื่อเวลา \'1/1/2" +
                         "020 00:30:00\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+#line 40
+ testRunner.And("รหัสยืนยัน OTP ที่ระบบส่งให้คือ \'A1B2C3\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -257,7 +272,7 @@ this.FeatureBackground();
         
         [Xunit.SkippableTheoryAttribute(DisplayName="เบอร์โทรถูกล๊อคและยังไม่ถึงเวลาที่กำหนดมาขอทำรายการ จะต้องดำเนินรายการไม่ได้ จนกว" +
             "่าจะถึงเวลาที่กำหนด")]
-        [Xunit.TraitAttribute("FeatureTitle", "BackOff")]
+        [Xunit.TraitAttribute("FeatureTitle", "RequestOTP")]
         [Xunit.TraitAttribute("Description", "เบอร์โทรถูกล๊อคและยังไม่ถึงเวลาที่กำหนดมาขอทำรายการ จะต้องดำเนินรายการไม่ได้ จนกว" +
             "่าจะถึงเวลาที่กำหนด")]
         [Xunit.InlineDataAttribute("1/1/2020 00:28:00", new string[0])]
@@ -268,7 +283,7 @@ this.FeatureBackground();
             string[] tagsOfScenario = exampleTags;
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("เบอร์โทรถูกล๊อคและยังไม่ถึงเวลาที่กำหนดมาขอทำรายการ จะต้องดำเนินรายการไม่ได้ จนกว" +
                     "่าจะถึงเวลาที่กำหนด", null, exampleTags);
-#line 37
+#line 42
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -299,16 +314,16 @@ this.FeatureBackground();
                             "0914185404",
                             "4",
                             "1/1/2020 00:30:00"});
-#line 38
+#line 43
  testRunner.Given("รายการเบอร์โทรในระบบเป็นดังนี้", ((string)(null)), table4, "Given ");
 #line hidden
-#line 41
+#line 46
  testRunner.And(string.Format("ขณะนี้เวลา \'{0}\'", currentTime), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 42
+#line 47
  testRunner.When("เบอร์โทร \'0914185404\' ขอทำรายการ", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 43
+#line 48
  testRunner.Then("ขอดำเนินรายการไม่ได้ โดยเป็นการขอครั้งที่ \'4\' และจะขอทำรายการได้ใหม่เมื่อเวลา \'1/" +
                         "1/2020 00:30:00\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
@@ -318,7 +333,7 @@ this.FeatureBackground();
         
         [Xunit.SkippableTheoryAttribute(DisplayName="เบอร์โทรถูกล๊อคแต่เลยเวลาที่กำหนดมาขอทำรายการ จะต้องขอดำเนินรายการได้ และจะต้องรอ" +
             " 30 นาทีถึงจะทำขอทำรายการใหม่ได้")]
-        [Xunit.TraitAttribute("FeatureTitle", "BackOff")]
+        [Xunit.TraitAttribute("FeatureTitle", "RequestOTP")]
         [Xunit.TraitAttribute("Description", "เบอร์โทรถูกล๊อคแต่เลยเวลาที่กำหนดมาขอทำรายการ จะต้องขอดำเนินรายการได้ และจะต้องรอ" +
             " 30 นาทีถึงจะทำขอทำรายการใหม่ได้")]
         [Xunit.InlineDataAttribute("1/1/2020 00:30:00", "1/1/2020 01:00:00", new string[0])]
@@ -328,7 +343,7 @@ this.FeatureBackground();
             string[] tagsOfScenario = exampleTags;
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("เบอร์โทรถูกล๊อคแต่เลยเวลาที่กำหนดมาขอทำรายการ จะต้องขอดำเนินรายการได้ และจะต้องรอ" +
                     " 30 นาทีถึงจะทำขอทำรายการใหม่ได้", null, exampleTags);
-#line 51
+#line 56
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -359,17 +374,20 @@ this.FeatureBackground();
                             "0914185404",
                             "4",
                             "1/1/2020 00:30:00"});
-#line 52
+#line 57
  testRunner.Given("รายการเบอร์โทรในระบบเป็นดังนี้", ((string)(null)), table5, "Given ");
 #line hidden
-#line 55
+#line 60
  testRunner.And(string.Format("ขณะนี้เวลา \'{0}\'", currentTime), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 56
+#line 61
  testRunner.When("เบอร์โทร \'0914185404\' ขอทำรายการ", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 57
+#line 62
  testRunner.Then(string.Format("ขอดำเนินรายการได้ โดยเป็นการขอครั้งที่ \'5\' และจะขอทำรายการได้ใหม่เมื่อเวลา \'{0}\'", expectedUnlockedTime), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+#line 63
+ testRunner.And("รหัสยืนยัน OTP ที่ระบบส่งให้คือ \'A1B2C3\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -382,12 +400,12 @@ this.FeatureBackground();
             
             public FixtureData()
             {
-                BackOffFeature.FeatureSetup();
+                RequestOTPFeature.FeatureSetup();
             }
             
             void System.IDisposable.Dispose()
             {
-                BackOffFeature.FeatureTearDown();
+                RequestOTPFeature.FeatureTearDown();
             }
         }
     }

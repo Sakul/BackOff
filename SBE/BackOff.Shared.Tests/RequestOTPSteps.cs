@@ -12,47 +12,34 @@ namespace BackOff.Shared.Tests
     [Binding]
     public class RequestOTPSteps
     {
-        private DateTime currentTime;
-        private Func<DateTime> currenTimeFn;
-        private OtpController sut;
-        private Mock<ICounter> requestCounterMock;
-        private Mock<IWela> welaMock;
-        private Otp actual;
+        public Otp actual;
 
-        public RequestOTPSteps()
-        {
-            currenTimeFn = () => currentTime;
-            var mock = new MockRepository(MockBehavior.Default);
-            requestCounterMock = mock.Create<ICounter>();
-            welaMock = mock.Create<IWela>();
-            sut = new OtpController(requestCounterMock.Object, welaMock.Object, currenTimeFn);
-        }
+        private readonly OtpContext ctx;
+
+        public RequestOTPSteps(OtpContext ctx)
+            => this.ctx = ctx;
 
         [Given(@"รายการเบอร์โทรในระบบเป็นดังนี้")]
         public void Givenรายการเบอรโทรในระบบเปนดงน(Table table)
         {
             var data = table.CreateSet<PhoneRecord>().ToList();
-            requestCounterMock
+            ctx.RequestCounterMock
                 .Setup(it => it.GetAttemption(It.IsAny<string>()))
                 .Returns<string>(phone => data.FirstOrDefault(it => it.Phone == phone)?.AttemptCount ?? 0);
-            requestCounterMock
+            ctx.RequestCounterMock
                 .Setup(it => it.Increment(It.IsAny<string>()))
                 .Returns<string>(phone => (data.FirstOrDefault(it => it.Phone == phone)?.AttemptCount ?? 0) + 1);
-            welaMock
+            ctx.WelaMock
                 .Setup(it => it.GetUnlockedTime(It.IsAny<string>()))
                 .Returns<string>(phone => data.FirstOrDefault(it => it.Phone == phone).UnlockedTime);
-            welaMock
+            ctx.WelaMock
                 .Setup(it => it.HasExpired(It.IsAny<string>()))
-                .Returns<string>(phone => currentTime >= data.FirstOrDefault(it => it.Phone == phone).UnlockedTime);
+                .Returns<string>(phone => ctx.CurrentTime >= data.FirstOrDefault(it => it.Phone == phone).UnlockedTime);
         }
-
-        [Given(@"ขณะนี้เวลา '(.*)'")]
-        public void Givenขณะนเวลา(DateTime currentTime)
-            => this.currentTime = currentTime;
 
         [When(@"เบอร์โทร '(.*)' ขอทำรายการ")]
         public void Whenเบอรโทรขอทำรายการ(string phone)
-            => actual = sut.RequestOtp(phone);
+            => actual = ctx.Sut.RequestOtp(phone);
 
         [Then(@"ขอดำเนินรายการได้ โดยเป็นการขอครั้งที่ '(.*)' และจะขอทำรายการได้ใหม่เมื่อเวลา '(.*)'")]
         public void Thenขอดำเนนรายการได(int expectedReqAttempt, DateTime expectedUnlockedTime)
@@ -62,9 +49,14 @@ namespace BackOff.Shared.Tests
             actual.BackOff.ReqAttempt.Should().Be(expectedReqAttempt);
             actual.BackOff.UnlockedTime.Should().Be(expectedUnlockedTime);
 
-            requestCounterMock.Verify(it => it.Increment(It.IsAny<string>()), Times.Exactly(1));
-            welaMock.Verify(it => it.SetUnlockedTime(It.IsAny<string>(), It.Is<DateTime>(actual => actual == expectedUnlockedTime)), Times.Exactly(1));
+            ctx.RequestCounterMock.Verify(it => it.Increment(It.IsAny<string>()), Times.Exactly(1));
+            ctx.OtpCodeMock.Verify(it => it.SetCode(It.IsAny<string>()), Times.Exactly(1));
+            ctx.WelaMock.Verify(it => it.SetUnlockedTime(It.IsAny<string>(), It.Is<DateTime>(actual => actual == expectedUnlockedTime)), Times.Exactly(1));
         }
+
+        [Then(@"รหัสยืนยัน OTP ที่ระบบส่งให้คือ '(.*)'")]
+        public void ThenรหสยนยนOTPทระบบสงใหคอ(string expectedCode)
+            => actual.Code.Should().Be(expectedCode);
 
         [Then(@"ขอดำเนินรายการไม่ได้ โดยเป็นการขอครั้งที่ '(.*)' และจะขอทำรายการได้ใหม่เมื่อเวลา '(.*)'")]
         public void Thenขอดำเนนรายการไมไดโดยเปนการขอครงทและจะขอทำรายการไดใหมเมอเวลา(int expectedReqAttempt, DateTime expectedUnlockedTime)
@@ -74,8 +66,9 @@ namespace BackOff.Shared.Tests
             actual.BackOff.ReqAttempt.Should().Be(expectedReqAttempt);
             actual.BackOff.UnlockedTime.Should().Be(expectedUnlockedTime);
 
-            requestCounterMock.Verify(it => it.Increment(It.IsAny<string>()), Times.Never());
-            welaMock.Verify(it => it.SetUnlockedTime(It.IsAny<string>(), It.IsAny<DateTime>()), Times.Never());
+            ctx.RequestCounterMock.Verify(it => it.Increment(It.IsAny<string>()), Times.Never());
+            ctx.OtpCodeMock.Verify(it => it.SetCode(It.IsAny<string>()), Times.Never());
+            ctx.WelaMock.Verify(it => it.SetUnlockedTime(It.IsAny<string>(), It.IsAny<DateTime>()), Times.Never());
         }
     }
 }

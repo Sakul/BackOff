@@ -4,5 +4,6 @@
     {
         int Increment(string phone);
         int GetAttemption(string phone);
+        void Reset(string phone);
     }
 }
